@@ -7,15 +7,14 @@ Microsoft.EntityFrameworkCore.Design
 
 Create DbContext.cs
 
-Run by Package Manager Console:
+--Run by Package Manager Console:
 dotnet ef migrations add InitialCreate --project TimeSerie.Ef --startup-project TimeSerie.Ef
-this creates Migrations folder and files with Migration class
+--this creates Migrations folder and files with Migration class (If called first time)
+--call this again after change of model to create a new migration script
 
 dotnet ef database update --project TimeSerie.Ef --startup-project TimeSerie.Ef
-this creates blogging.db file with database
+--this creates TimeSerie.db file with database
 
-dotnet ef migrations add TimeSerieDecimal --project TimeSerie.Ef --startup-project TimeSerie.Ef
-call this after change of model to create a new migration script
 
 dotnet ef migrations remove --project TimeSerie.Ef --startup-project TimeSerie.Ef
-call this to remove migration if you can repair model and add repaired migration
+--call this to remove migration if you can repair model and add repaired migration

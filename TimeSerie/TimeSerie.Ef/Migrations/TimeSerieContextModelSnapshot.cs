@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeSerie.Ef;
 
 namespace TimeSerie.Ef.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
-    [Migration("20190126164111_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(TimeSerieContext))]
+    partial class TimeSerieContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +29,30 @@ namespace TimeSerie.Ef.Migrations
 
                     b.HasKey("TimeSerieHeaderId");
 
-                    b.ToTable("TimeSerieHeaders");
+                    b.ToTable("TimeSerieHeader");
+                });
+
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieHeaderProperty", b =>
+                {
+                    b.Property<int>("TimeSerieHeaderPropertyId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TimeSerieHeaderId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("TimeSerieHeaderPropertyId");
+
+                    b.HasIndex("TimeSerieHeaderId");
+
+                    b.ToTable("TimeSerieHeaderProperty");
                 });
 
             modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<decimal>", b =>
                 {
-                    b.Property<long>("TimeSerieValueBaseId")
+                    b.Property<long>("TimeSerieValueId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("TimeSerieValueDecimalId");
 
@@ -46,7 +62,7 @@ namespace TimeSerie.Ef.Migrations
 
                     b.Property<decimal>("Value");
 
-                    b.HasKey("TimeSerieValueBaseId");
+                    b.HasKey("TimeSerieValueId");
 
                     b.HasIndex("TimeSerieHeaderId");
 
@@ -55,7 +71,7 @@ namespace TimeSerie.Ef.Migrations
 
             modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<string>", b =>
                 {
-                    b.Property<long>("TimeSerieValueBaseId")
+                    b.Property<long>("TimeSerieValueId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("TimeSerieValueStringId");
 
@@ -65,11 +81,19 @@ namespace TimeSerie.Ef.Migrations
 
                     b.Property<string>("Value");
 
-                    b.HasKey("TimeSerieValueBaseId");
+                    b.HasKey("TimeSerieValueId");
 
                     b.HasIndex("TimeSerieHeaderId");
 
                     b.ToTable("TimeSerieValueString");
+                });
+
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieHeaderProperty", b =>
+                {
+                    b.HasOne("TimeSerie.Core.Domain.TimeSerieHeader", "TimeSerieHeader")
+                        .WithMany("TimeSerieHeaderProperties")
+                        .HasForeignKey("TimeSerieHeaderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<decimal>", b =>

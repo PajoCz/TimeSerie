@@ -12,6 +12,7 @@ namespace TimeSerie.Core.Domain
         //public Guid Identifier { get; set; }
         //TODO: json metadata (not only Name) with easy searching
         //public string Name { get; set; }
+        public ICollection<TimeSerieHeaderProperty> TimeSerieHeaderProperties { get; set; }
         public ICollection<TimeSerieValue<decimal>> ValueDecimals { get; set; }
         public ICollection<TimeSerieValue<string>> ValueStrings { get; set; }
         public TimeSerieType TimeSerieType { get; set; }

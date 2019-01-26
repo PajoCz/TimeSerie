@@ -1,2 +1,2 @@
-﻿To test with blogging.db database
-Copy from TimeSerie.Ef/blogging.db to TimeSerie.Ef.Test\bin\Debug\netcoreapp2.2\blogging.db
+﻿To test with TimeSerie.db database
+Copy from TimeSerie.Ef/TimeSerie.db to TimeSerie.Ef.Test\bin\Debug\netcoreapp2.2\TimeSerie.db

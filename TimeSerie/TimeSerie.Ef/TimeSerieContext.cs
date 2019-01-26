@@ -7,15 +7,15 @@ using TimeSerie.Core.Domain;
 
 namespace TimeSerie.Ef
 {
-    public class BloggingContext : DbContext
+    public class TimeSerieContext : DbContext
     {
         public static readonly LoggerFactory LoggerFactory = new LoggerFactory(new [] {new DebugLoggerProvider()});
 
-        public BloggingContext()
+        public TimeSerieContext()
         {
         }
 
-        public BloggingContext(DbContextOptions options) : base(options)
+        public TimeSerieContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -25,19 +25,20 @@ namespace TimeSerie.Ef
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=blogging.db");
+            optionsBuilder.UseSqlite("Data Source=TimeSerie.db");
             optionsBuilder.UseLoggerFactory(LoggerFactory);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TimeSerieHeader>().ToTable("TimeSerieHeader");
             modelBuilder.Entity<TimeSerieValue<decimal>>().ToTable("TimeSerieValueDecimal");
-            modelBuilder.Entity<TimeSerieValue<decimal>>().Property(tsv => tsv.TimeSerieValueBaseId)
+            modelBuilder.Entity<TimeSerieValue<decimal>>().Property(tsv => tsv.TimeSerieValueId)
                 .HasColumnName("TimeSerieValueDecimalId");
             //modelBuilder.Entity<TimeSerieValue<decimal>>().Property(tsv => tsv.TimeSerieHeaderId)
             //    .HasColumnName("TimeSerieHeaderId");
             modelBuilder.Entity<TimeSerieValue<string>>().ToTable("TimeSerieValueString");
-            modelBuilder.Entity<TimeSerieValue<string>>().Property(tsv => tsv.TimeSerieValueBaseId)
+            modelBuilder.Entity<TimeSerieValue<string>>().Property(tsv => tsv.TimeSerieValueId)
                 .HasColumnName("TimeSerieValueStringId");
         }
     }

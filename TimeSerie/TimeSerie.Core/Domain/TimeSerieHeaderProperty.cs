@@ -5,19 +5,23 @@ using System.Text;
 
 namespace TimeSerie.Core.Domain
 {
-    public class TimeSerieValue<T>
+    public class TimeSerieHeaderProperty
     {
-        public TimeSerieValue(DateTimeOffset dateTimeOffset, T value)
+        public TimeSerieHeaderProperty()
         {
-            DateTimeOffset = dateTimeOffset;
+        }
+
+        public TimeSerieHeaderProperty(string name, string value)
+        {
+            Name = name;
             Value = value;
         }
 
         [Key]
-        public long TimeSerieValueId { get; set; }
+        public int TimeSerieHeaderPropertyId { get; set; }
         public int TimeSerieHeaderId { get; set; }
         public TimeSerieHeader TimeSerieHeader { get; set; }
-        public DateTimeOffset DateTimeOffset { get; set; }
-        public T Value { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }

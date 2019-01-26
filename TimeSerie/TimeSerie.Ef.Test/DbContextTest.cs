@@ -13,12 +13,12 @@ namespace TimeSerie.Ef.Test
         [Fact]
         public void TimeSeriesInsertTest()
         {
-            //var options = new DbContextOptionsBuilder<BloggingContext>()
-            //    .UseSqlite(@"Data Source=c:\Users\pajo\Source\Repos\TimeSerie\TimeSerie\TimeSerie.Ef\blogging.db")
+            //var options = new DbContextOptionsBuilder<TimeSerieContext>()
+            //    .UseSqlite(@"Data Source=c:\Users\pajo\Source\Repos\TimeSerie\TimeSerie\TimeSerie.Ef\TimeSerie.db")
             //    .Options;
 
-            //using (var db = new BloggingContext(options))
-            using (var db = new BloggingContext())
+            //using (var db = new TimeSerieContext(options))
+            using (var db = new TimeSerieContext())
             {
                 db.Database.EnsureCreated();
                 //db.Database.EnsureDeleted();
@@ -56,12 +56,12 @@ namespace TimeSerie.Ef.Test
         [Fact]
         public void TimeSeriesReadTest()
         {
-            //var options = new DbContextOptionsBuilder<BloggingContext>()
-            //    .UseSqlite(@"Data Source=c:\Users\pajo\Source\Repos\TimeSerie\TimeSerie\TimeSerie.Ef\blogging.db")
+            //var options = new DbContextOptionsBuilder<TimeSerieContext>()
+            //    .UseSqlite(@"Data Source=c:\Users\pajo\Source\Repos\TimeSerie\TimeSerie\TimeSerie.Ef\TimeSerie.db")
             //    .Options;
 
-            //using (var db = new BloggingContext(options))
-            using (var db = new BloggingContext())
+            //using (var db = new TimeSerieContext(options))
+            using (var db = new TimeSerieContext())
             {
                 db.Database.EnsureCreated();
                 //db.Database.EnsureDeleted();

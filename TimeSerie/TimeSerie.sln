@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Core", "TimeSerie.Core\TimeSerie.Core.csproj", "{36EF3083-03F5-4B37-98A9-71C3A3C47576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSerie.Core", "TimeSerie.Core\TimeSerie.Core.csproj", "{36EF3083-03F5-4B37-98A9-71C3A3C47576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Core.Test", "TimeSerie.Core.Test\TimeSerie.Core.Test.csproj", "{728B66C1-1897-4C4B-B445-4AC9A0DC6BC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSerie.Core.Test", "TimeSerie.Core.Test\TimeSerie.Core.Test.csproj", "{728B66C1-1897-4C4B-B445-4AC9A0DC6BC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Ef", "TimeSerie.Ef\TimeSerie.Ef.csproj", "{36AB23DC-A3E0-4477-923D-B4446907F305}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSerie.Ef", "TimeSerie.Ef\TimeSerie.Ef.csproj", "{36AB23DC-A3E0-4477-923D-B4446907F305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Ef.Test", "TimeSerie.Ef.Test\TimeSerie.Ef.Test.csproj", "{03D53A4A-C91A-4C1C-8207-D595C86AC7ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSerie.Ef.Test", "TimeSerie.Ef.Test\TimeSerie.Ef.Test.csproj", "{03D53A4A-C91A-4C1C-8207-D595C86AC7ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.ExternalReader.ChmiAimData", "TimeSerie.ExternalReader.ChmiAimData\TimeSerie.ExternalReader.ChmiAimData.csproj", "{4E0651FE-1405-4302-9318-C75F5C2A93EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.ExternalReader.ChmiAimData.Test", "TimeSerie.ExternalReader.ChmiAimData.Test\TimeSerie.ExternalReader.ChmiAimData.Test.csproj", "{4DD8396F-FAE5-40FF-83C7-A7D88075CAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Service", "TimeSerie.Service\TimeSerie.Service.csproj", "{D428DD97-66C4-4AAD-8203-CF2D58D72EDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSerie.Service.Test", "TimeSerie.Service.Test\TimeSerie.Service.Test.csproj", "{BECB2C3E-E853-4C10-A72E-E7833A5F9B6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{03D53A4A-C91A-4C1C-8207-D595C86AC7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03D53A4A-C91A-4C1C-8207-D595C86AC7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03D53A4A-C91A-4C1C-8207-D595C86AC7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0651FE-1405-4302-9318-C75F5C2A93EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0651FE-1405-4302-9318-C75F5C2A93EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0651FE-1405-4302-9318-C75F5C2A93EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0651FE-1405-4302-9318-C75F5C2A93EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD8396F-FAE5-40FF-83C7-A7D88075CAD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD8396F-FAE5-40FF-83C7-A7D88075CAD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD8396F-FAE5-40FF-83C7-A7D88075CAD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD8396F-FAE5-40FF-83C7-A7D88075CAD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D428DD97-66C4-4AAD-8203-CF2D58D72EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D428DD97-66C4-4AAD-8203-CF2D58D72EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D428DD97-66C4-4AAD-8203-CF2D58D72EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D428DD97-66C4-4AAD-8203-CF2D58D72EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECB2C3E-E853-4C10-A72E-E7833A5F9B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECB2C3E-E853-4C10-A72E-E7833A5F9B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECB2C3E-E853-4C10-A72E-E7833A5F9B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECB2C3E-E853-4C10-A72E-E7833A5F9B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
