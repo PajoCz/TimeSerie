@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "TimeSerie.Ef.Test": {
+      "commandName": "Project"
+    }
+  }
+}

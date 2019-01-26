@@ -1,0 +1,21 @@
+﻿How to create this project:
+https://docs.microsoft.com/cs-cz/ef/core/get-started/netcore/new-db-sqlite
+
+Add by Manage NuGet Packages this nugets:
+Microsoft.EntityFrameworkCore.Sqlite
+Microsoft.EntityFrameworkCore.Design
+
+Create DbContext.cs
+
+Run by Package Manager Console:
+dotnet ef migrations add InitialCreate --project TimeSerie.Ef --startup-project TimeSerie.Ef
+this creates Migrations folder and files with Migration class
+
+dotnet ef database update --project TimeSerie.Ef --startup-project TimeSerie.Ef
+this creates blogging.db file with database
+
+dotnet ef migrations add TimeSerieDecimal --project TimeSerie.Ef --startup-project TimeSerie.Ef
+call this after change of model to create a new migration script
+
+dotnet ef migrations remove --project TimeSerie.Ef --startup-project TimeSerie.Ef
+call this to remove migration if you can repair model and add repaired migration
