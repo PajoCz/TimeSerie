@@ -17,58 +17,80 @@ namespace TimeSerie.Service
             var tsFromStream = (await new ChmiAimDataReader().Process(p_Stream)).ToList();
             using (var db = new TimeSerieContext())
             {
-                db.Database.EnsureCreated();
+                //db.Database.EnsureCreated();
                 var tsFromDb = db.TimeSerieHeaders.Include(tsh => tsh.TimeSerieHeaderProperties).ToList();
-
-                foreach (TimeSerieHeader tsstr in tsFromStream)
+                foreach (TimeSerieHeader tsFromStreamItem in tsFromStream)
                 {
-                    var dbFoundToUpdate = tsFromDb.Find(tsdb =>
-                    {
-                        foreach (var dbProp in tsdb.TimeSerieHeaderProperties)
-                        {
-                            TimeSerieHeaderProperty propSameNameValueFound = tsstr.TimeSerieHeaderProperties.ToList()
-                                .Find(strProp => strProp.Name == dbProp.Name && strProp.Value == dbProp.Value);
-                            if (propSameNameValueFound == null)
-                            {
-                                return false;
-                            }
-                        }
+                    var tsFromDbSameProperties = tsFromDb.Where(tsFromDbItem => tsFromDbItem.TimeSerieType == tsFromStreamItem.TimeSerieType).FindWithSameProperties(tsFromStreamItem.TimeSerieHeaderProperties);
 
-                        foreach (TimeSerieValue<decimal> tsstrItem in tsstr.ValueDecimals)
-                        {
-                            tsstrItem.TimeSerieHeaderId = tsdb.TimeSerieHeaderId;
-                        }
-                        return true;
-                    });
-
-                    if (dbFoundToUpdate != null)
+                    if (tsFromDbSameProperties != null)
                     {
-                        //UPDATE TimeSerieHeader
-                        var dbDecimals = db.TimeSerieValueDecimals.Where(tsvd => tsvd.TimeSerieHeaderId == dbFoundToUpdate.TimeSerieHeaderId).ToList();
-                        //decimalsToUpdate
-                        foreach (var tsstrItem in tsstr.ValueDecimals)
+                        if (tsFromDbSameProperties.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.ValueDecimals != null)
                         {
-                            var dtoFound = dbDecimals.Find(d => d.DateTimeOffset == tsstrItem.DateTimeOffset);
-                            if (dtoFound != null)
+                            foreach (TimeSerieValue<decimal> tsstrItem in tsFromStreamItem.ValueDecimals)
                             {
-                                //UPDATE TimeSerieValueDecimal
-                                dtoFound.Value = tsstrItem.Value;
+                                tsstrItem.TimeSerieHeaderId = tsFromDbSameProperties.TimeSerieHeaderId;
                             }
-                            else
+                            await ValueDecimalsInsertUpdate(db, tsFromDbSameProperties, tsFromStreamItem.ValueDecimals);
+                        }
+                        if (tsFromDbSameProperties.TimeSerieType == TimeSerieType.String && tsFromStreamItem.TimeSerieType == TimeSerieType.String && tsFromStreamItem.ValueStrings != null)
+                        {
+                            foreach (TimeSerieValue<string> tsstrItem in tsFromStreamItem.ValueStrings)
                             {
-                                //INSERT TimeSerieValueDecimal
-                                await db.TimeSerieValueDecimals.AddAsync(tsstrItem);
+                                tsstrItem.TimeSerieHeaderId = tsFromDbSameProperties.TimeSerieHeaderId;
                             }
+                            await ValueStringsInsertUpdate(db, tsFromDbSameProperties, tsFromStreamItem.ValueStrings);
                         }
                     }
                     else
                     {
-                        //INSERT TimeSerieHeader
-                        await db.TimeSerieHeaders.AddAsync(tsstr);
+                        await db.TimeSerieHeaders.AddAsync(tsFromStreamItem);
                     }
                 }
 
                 await db.SaveChangesAsync();
+            }
+        }
+
+        private static async Task ValueDecimalsInsertUpdate(TimeSerieContext db, TimeSerieHeader TimeSerieHeaderFromDb,
+            ICollection<TimeSerieValue<decimal>> p_ValueDecimalsForInsertUpdate)
+        {
+            var dbDecimals = db.TimeSerieValueDecimals
+                .Where(tsvd => tsvd.TimeSerieHeaderId == TimeSerieHeaderFromDb.TimeSerieHeaderId).ToList();
+            foreach (var tsstrItem in p_ValueDecimalsForInsertUpdate)
+            {
+                var dtoFound = dbDecimals.Find(d => d.DateTimeOffset == tsstrItem.DateTimeOffset);
+                if (dtoFound != null)
+                {
+                    //UPDATE TimeSerieValueDecimal
+                    dtoFound.Value = tsstrItem.Value;
+                }
+                else
+                {
+                    //INSERT TimeSerieValueDecimal
+                    await db.TimeSerieValueDecimals.AddAsync(tsstrItem);
+                }
+            }
+        }
+
+        private static async Task ValueStringsInsertUpdate(TimeSerieContext db, TimeSerieHeader TimeSerieHeaderFromDb,
+            ICollection<TimeSerieValue<string>> p_ValueStringsForInsertUpdate)
+        {
+            var dbStrings = db.TimeSerieValueStrings
+                .Where(tsvd => tsvd.TimeSerieHeaderId == TimeSerieHeaderFromDb.TimeSerieHeaderId).ToList();
+            foreach (var tsstrItem in p_ValueStringsForInsertUpdate)
+            {
+                var dtoFound = dbStrings.Find(d => d.DateTimeOffset == tsstrItem.DateTimeOffset);
+                if (dtoFound != null)
+                {
+                    //UPDATE TimeSerieValueDecimal
+                    dtoFound.Value = tsstrItem.Value;
+                }
+                else
+                {
+                    //INSERT TimeSerieValueDecimal
+                    await db.TimeSerieValueStrings.AddAsync(tsstrItem);
+                }
             }
         }
     }

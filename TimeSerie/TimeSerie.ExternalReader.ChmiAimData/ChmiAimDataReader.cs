@@ -42,6 +42,7 @@ namespace TimeSerie.ExternalReader.ChmiAimData
 
                             result.Add(new TimeSerieHeader()
                             {
+                                TimeSerieType = TimeSerieType.Decimal,
                                 TimeSerieHeaderProperties = new List<TimeSerieHeaderProperty>()
                                 {
                                     new TimeSerieHeaderProperty("code", stationNode.SelectSingleNode("code").InnerText),
@@ -54,6 +55,22 @@ namespace TimeSerie.ExternalReader.ChmiAimData
                                 {
                                     new TimeSerieValue<decimal>(datetimefromLocal,
                                         decimal.Parse(value, CultureInfo.GetCultureInfo("en-EN")))
+                                }
+                            });
+                            result.Add(new TimeSerieHeader()
+                            {
+                                TimeSerieType = TimeSerieType.String,
+                                TimeSerieHeaderProperties = new List<TimeSerieHeaderProperty>()
+                                {
+                                    new TimeSerieHeaderProperty("code", stationNode.SelectSingleNode("code").InnerText),
+                                    new TimeSerieHeaderProperty("name", stationNode.SelectSingleNode("name").InnerText),
+                                    new TimeSerieHeaderProperty("longtitude", stationNode.SelectSingleNode("wgs84_longitude").InnerText),
+                                    new TimeSerieHeaderProperty("latitude", stationNode.SelectSingleNode("wgs84_latitude").InnerText),
+                                    new TimeSerieHeaderProperty("component", component)
+                                },
+                                ValueStrings = new List<TimeSerieValue<string>>()
+                                {
+                                    new TimeSerieValue<string>(datetimefromLocal, value)
                                 }
                             });
                         }
