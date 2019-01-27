@@ -14,6 +14,7 @@ namespace TimeSerie.Service
     {
         public async Task Process(Stream p_Stream)
         {
+            //todo: dynamic call convertor plugin
             var tsFromStream = (await new ChmiAimDataReader().Process(p_Stream)).ToList();
             using (var db = new TimeSerieContext())
             {
@@ -21,25 +22,21 @@ namespace TimeSerie.Service
                 var tsFromDb = db.TimeSerieHeaders.Include(tsh => tsh.TimeSerieHeaderProperties).ToList();
                 foreach (TimeSerieHeader tsFromStreamItem in tsFromStream)
                 {
-                    var tsFromDbSameProperties = tsFromDb.Where(tsFromDbItem => tsFromDbItem.TimeSerieType == tsFromStreamItem.TimeSerieType).FindWithSameProperties(tsFromStreamItem.TimeSerieHeaderProperties);
+                    var tsFromDbForUpdate = tsFromDb
+                        .Where(tsFromDbItem => tsFromDbItem.TimeSerieType == tsFromStreamItem.TimeSerieType)
+                        .FindWithSameProperties(tsFromStreamItem.TimeSerieHeaderProperties);
 
-                    if (tsFromDbSameProperties != null)
+                    if (tsFromDbForUpdate != null)
                     {
-                        if (tsFromDbSameProperties.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.ValueDecimals != null)
+                        if (tsFromDbForUpdate.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.TimeSerieType == TimeSerieType.Decimal && tsFromStreamItem.ValueDecimals != null)
                         {
-                            foreach (TimeSerieValue<decimal> tsstrItem in tsFromStreamItem.ValueDecimals)
-                            {
-                                tsstrItem.TimeSerieHeaderId = tsFromDbSameProperties.TimeSerieHeaderId;
-                            }
-                            await ValueDecimalsInsertUpdate(db, tsFromDbSameProperties, tsFromStreamItem.ValueDecimals);
+                            tsFromStreamItem.ValueDecimals.ToList().ForEach(i => i.TimeSerieHeaderId = tsFromDbForUpdate.TimeSerieHeaderId);
+                            await ValueDecimalsInsertUpdate(db, tsFromDbForUpdate, tsFromStreamItem.ValueDecimals);
                         }
-                        if (tsFromDbSameProperties.TimeSerieType == TimeSerieType.String && tsFromStreamItem.TimeSerieType == TimeSerieType.String && tsFromStreamItem.ValueStrings != null)
+                        if (tsFromDbForUpdate.TimeSerieType == TimeSerieType.String && tsFromStreamItem.TimeSerieType == TimeSerieType.String && tsFromStreamItem.ValueStrings != null)
                         {
-                            foreach (TimeSerieValue<string> tsstrItem in tsFromStreamItem.ValueStrings)
-                            {
-                                tsstrItem.TimeSerieHeaderId = tsFromDbSameProperties.TimeSerieHeaderId;
-                            }
-                            await ValueStringsInsertUpdate(db, tsFromDbSameProperties, tsFromStreamItem.ValueStrings);
+                            tsFromStreamItem.ValueStrings.ToList().ForEach(i => i.TimeSerieHeaderId = tsFromDbForUpdate.TimeSerieHeaderId);
+                            await ValueStringsInsertUpdate(db, tsFromDbForUpdate, tsFromStreamItem.ValueStrings);
                         }
                     }
                     else
