@@ -13,8 +13,8 @@ namespace TimeSerie.Core.Domain
         //TODO: json metadata (not only Name) with easy searching
         //public string Name { get; set; }
         public ICollection<TimeSerieHeaderProperty> TimeSerieHeaderProperties { get; set; }
-        public ICollection<TimeSerieValue<decimal>> ValueDecimals { get; set; }
-        public ICollection<TimeSerieValue<string>> ValueStrings { get; set; }
+        public ICollection<TimeSerieValueDecimal> ValueDecimals { get; set; }
+        public ICollection<TimeSerieValueString> ValueStrings { get; set; }
         public TimeSerieType TimeSerieType { get; set; }
         //todo: redundant info serialized or calculated from ValueDecimals/ValueStrings by TimeSerieType
         public DateTimeOffset? ValuesFrom { get; set; }

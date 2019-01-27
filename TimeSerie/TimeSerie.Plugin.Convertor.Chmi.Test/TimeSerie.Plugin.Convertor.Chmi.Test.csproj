@@ -14,14 +14,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimeSerie.Plugin.Convertor.Chmi\TimeSerie.Plugin.Convertor.Chmi.csproj" />
-    <ProjectReference Include="..\TimeSerie.Service\TimeSerie.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Files\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Files\AIMdata-2019-01-26 18-00 2 stations.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Files\AIMdata-2019-01-27 09-00 3 stations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

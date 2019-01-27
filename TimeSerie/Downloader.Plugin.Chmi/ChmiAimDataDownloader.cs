@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Downloader.Core;
+using System;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeSerie.ExternalReader.ChmiAimData
+namespace Downloader.Plugin.ChmiAimData
 {
-    public class ChmiAimDataDownloader
+    public class ChmiAimDataDownloader : IDownloader
     {
-        public async Task<Stream> Download(string p_Uri)
+        public async Task<Stream> Download(string p_Path)
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(p_Uri);
+            var response = await client.GetAsync(p_Path);
 
             if (!response.IsSuccessStatusCode)
                 throw new Exception($"Response ERROR: {await response.Content.ReadAsStringAsync()}");

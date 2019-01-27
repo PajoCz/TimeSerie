@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TimeSerie.Core\TimeSerie.Core.csproj" />
-    <ProjectReference Include="..\TimeSerie.Ef\TimeSerie.Ef.csproj" />
+    <ProjectReference Include="..\Downloader.Core\Downloader.Core.csproj" />
   </ItemGroup>
 
 </Project>

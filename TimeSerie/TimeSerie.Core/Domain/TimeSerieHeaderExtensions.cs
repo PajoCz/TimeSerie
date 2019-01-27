@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace TimeSerie.Core.Domain
 {
@@ -21,6 +22,18 @@ namespace TimeSerie.Core.Domain
             });
 
             return result;
+        }
+
+        public static string ToSortedJoinedString(this IEnumerable<TimeSerieHeaderProperty> p_This, string p_Delimited = ", ")
+        {
+            var thisSorted = p_This.OrderBy(i => i.Name);
+            StringBuilder sb = new StringBuilder();
+            foreach (var i in thisSorted.SkipLast(1))
+            {
+                sb.Append($"{i.Name}={i.Value}{p_Delimited}");
+            }
+            sb.Append($"{thisSorted.Last().Name}={thisSorted.Last().Value}");
+            return sb.ToString();
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace TimeSerie.ExternalReader.ChmiAimData.Test
+namespace Downloader.Plugin.ChmiAimData.Test
 {
     public class ChmiAimDataDownloaderTest
     {
@@ -13,7 +11,7 @@ namespace TimeSerie.ExternalReader.ChmiAimData.Test
         public async Task Test()
         {
             var uri = "http://portal.chmi.cz/files/portal/docs/uoco/web_generator/AIMdata_hourly.xml";
-            using (var fs = File.OpenWrite("AIMdata.xml"))
+            using (var fs = File.OpenWrite($"AIMdata-{DateTime.Now:yyyy-MM-dd hh-mm-ss}.xml"))
             {
                 var stream = await new ChmiAimDataDownloader().Download(uri);
                 await stream.CopyToAsync(fs);

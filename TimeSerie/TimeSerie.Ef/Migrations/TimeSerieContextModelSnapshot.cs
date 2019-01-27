@@ -50,7 +50,7 @@ namespace TimeSerie.Ef.Migrations
                     b.ToTable("TimeSerieHeaderProperty");
                 });
 
-            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<decimal>", b =>
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValueDecimal", b =>
                 {
                     b.Property<long>("TimeSerieValueId")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace TimeSerie.Ef.Migrations
                     b.ToTable("TimeSerieValueDecimal");
                 });
 
-            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<string>", b =>
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValueString", b =>
                 {
                     b.Property<long>("TimeSerieValueId")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace TimeSerie.Ef.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<decimal>", b =>
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValueDecimal", b =>
                 {
                     b.HasOne("TimeSerie.Core.Domain.TimeSerieHeader", "TimeSerieHeader")
                         .WithMany("ValueDecimals")
@@ -104,7 +104,7 @@ namespace TimeSerie.Ef.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValue<string>", b =>
+            modelBuilder.Entity("TimeSerie.Core.Domain.TimeSerieValueString", b =>
                 {
                     b.HasOne("TimeSerie.Core.Domain.TimeSerieHeader", "TimeSerieHeader")
                         .WithMany("ValueStrings")

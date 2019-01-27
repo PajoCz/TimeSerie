@@ -20,8 +20,8 @@ namespace TimeSerie.Ef
         }
 
         public DbSet<TimeSerieHeader> TimeSerieHeaders { get; set; }
-        public DbSet<TimeSerieValue<decimal>> TimeSerieValueDecimals { get; set; }
-        public DbSet<TimeSerieValue<string>> TimeSerieValueStrings { get; set; }
+        public DbSet<TimeSerieValueDecimal> TimeSerieValueDecimals { get; set; }
+        public DbSet<TimeSerieValueString> TimeSerieValueStrings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,13 +32,11 @@ namespace TimeSerie.Ef
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TimeSerieHeader>().ToTable("TimeSerieHeader");
-            modelBuilder.Entity<TimeSerieValue<decimal>>().ToTable("TimeSerieValueDecimal");
-            modelBuilder.Entity<TimeSerieValue<decimal>>().Property(tsv => tsv.TimeSerieValueId)
+            modelBuilder.Entity<TimeSerieValueDecimal>().ToTable("TimeSerieValueDecimal");
+            modelBuilder.Entity<TimeSerieValueDecimal>().Property(tsv => tsv.TimeSerieValueId)
                 .HasColumnName("TimeSerieValueDecimalId");
-            //modelBuilder.Entity<TimeSerieValue<decimal>>().Property(tsv => tsv.TimeSerieHeaderId)
-            //    .HasColumnName("TimeSerieHeaderId");
-            modelBuilder.Entity<TimeSerieValue<string>>().ToTable("TimeSerieValueString");
-            modelBuilder.Entity<TimeSerieValue<string>>().Property(tsv => tsv.TimeSerieValueId)
+            modelBuilder.Entity<TimeSerieValueString>().ToTable("TimeSerieValueString");
+            modelBuilder.Entity<TimeSerieValueString>().Property(tsv => tsv.TimeSerieValueId)
                 .HasColumnName("TimeSerieValueStringId");
         }
     }

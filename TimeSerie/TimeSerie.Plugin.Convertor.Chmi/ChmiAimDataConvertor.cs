@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
+using TimeSerie.Core.Convertor;
 using TimeSerie.Core.Domain;
 
-namespace TimeSerie.ExternalReader.ChmiAimData
+namespace TimeSerie.Plugin.Convertor.Chmi
 {
-    public class ChmiAimDataReader
+    public class ChmiAimDataConvertor : ITimeSerieConvertor
     {
-        public Task<IEnumerable<TimeSerieHeader>> Process(Stream p_Stream)
+        public Task<IEnumerable<TimeSerieHeader>> Convert(Stream p_Stream)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(p_Stream);
@@ -51,28 +49,28 @@ namespace TimeSerie.ExternalReader.ChmiAimData
                                     new TimeSerieHeaderProperty("latitude", stationNode.SelectSingleNode("wgs84_latitude").InnerText),
                                     new TimeSerieHeaderProperty("component", component)
                                 },
-                                ValueDecimals = new List<TimeSerieValue<decimal>>()
+                                ValueDecimals = new List<TimeSerieValueDecimal>()
                                 {
-                                    new TimeSerieValue<decimal>(datetimefromLocal,
+                                    new TimeSerieValueDecimal(datetimefromLocal,
                                         decimal.Parse(value, CultureInfo.GetCultureInfo("en-EN")))
                                 }
                             });
-                            result.Add(new TimeSerieHeader()
-                            {
-                                TimeSerieType = TimeSerieType.String,
-                                TimeSerieHeaderProperties = new List<TimeSerieHeaderProperty>()
-                                {
-                                    new TimeSerieHeaderProperty("code", stationNode.SelectSingleNode("code").InnerText),
-                                    new TimeSerieHeaderProperty("name", stationNode.SelectSingleNode("name").InnerText),
-                                    new TimeSerieHeaderProperty("longtitude", stationNode.SelectSingleNode("wgs84_longitude").InnerText),
-                                    new TimeSerieHeaderProperty("latitude", stationNode.SelectSingleNode("wgs84_latitude").InnerText),
-                                    new TimeSerieHeaderProperty("component", component)
-                                },
-                                ValueStrings = new List<TimeSerieValue<string>>()
-                                {
-                                    new TimeSerieValue<string>(datetimefromLocal, value)
-                                }
-                            });
+                            //result.Add(new TimeSerieHeader()
+                            //{
+                            //    TimeSerieType = TimeSerieType.String,
+                            //    TimeSerieHeaderProperties = new List<TimeSerieHeaderProperty>()
+                            //    {
+                            //        new TimeSerieHeaderProperty("code", stationNode.SelectSingleNode("code").InnerText),
+                            //        new TimeSerieHeaderProperty("name", stationNode.SelectSingleNode("name").InnerText),
+                            //        new TimeSerieHeaderProperty("longtitude", stationNode.SelectSingleNode("wgs84_longitude").InnerText),
+                            //        new TimeSerieHeaderProperty("latitude", stationNode.SelectSingleNode("wgs84_latitude").InnerText),
+                            //        new TimeSerieHeaderProperty("component", component)
+                            //    },
+                            //    ValueStrings = new List<TimeSerieValue<string>>()
+                            //    {
+                            //        new TimeSerieValue<string>(datetimefromLocal, value)
+                            //    }
+                            //});
                         }
                     }
                 }

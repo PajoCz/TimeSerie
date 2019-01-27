@@ -26,19 +26,19 @@ namespace TimeSerie.Ef.Test
                 db.TimeSerieHeaders.Add(new TimeSerieHeader()
                 {
                     TimeSerieType = TimeSerieType.Decimal,
-                    ValueDecimals = new List<TimeSerieValue<decimal>>()
+                    ValueDecimals = new List<TimeSerieValueDecimal>()
                     {
-                        new TimeSerieValue<decimal>(new DateTimeOffset(new DateTime(2000, 1, 1)), 10),
-                        new TimeSerieValue<decimal>(new DateTimeOffset(new DateTime(2000, 1, 2)), 20),
+                        new TimeSerieValueDecimal(new DateTimeOffset(new DateTime(2000, 1, 1)), 10),
+                        new TimeSerieValueDecimal(new DateTimeOffset(new DateTime(2000, 1, 2)), 20),
                     }
                 });
                 db.TimeSerieHeaders.Add(new TimeSerieHeader()
                 {
                     TimeSerieType = TimeSerieType.String,
-                    ValueStrings = new List<TimeSerieValue<string>>()
+                    ValueStrings = new List<TimeSerieValueString>()
                     {
-                        new TimeSerieValue<string>(new DateTimeOffset(new DateTime(2000, 1, 1)), "a"),
-                        new TimeSerieValue<string>(new DateTimeOffset(new DateTime(2000, 1, 2)), "b"),
+                        new TimeSerieValueString(new DateTimeOffset(new DateTime(2000, 1, 1)), "a"),
+                        new TimeSerieValueString(new DateTimeOffset(new DateTime(2000, 1, 2)), "b"),
                     }
                 });
                 var count = db.SaveChanges();

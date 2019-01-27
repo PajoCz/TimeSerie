@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AQ_hourly_index>
+<version>1.0</version>
+<organisation_name>Czech Hydrometeorological Institute</organisation_name>
+<timezone>UTC</timezone>
+   <Data>
+     <datetime_to>2019-01-26 18:00</datetime_to>
+         <station>
+            <code>ABREA</code>
+            <name>Praha 6-Břevnov</name>
+            <wgs84_longitude>14.380116</wgs84_longitude>
+            <wgs84_latitude>50.084385</wgs84_latitude>
+            <measurement>
+            <component>NO2</component>
+              <averaged_time>
+                 <averaged_hours>1</averaged_hours>
+                 <value>14.9</value>
+                 </averaged_time>
+            <component>PM10</component>
+              <averaged_time>
+                    <averaged_hours>24</averaged_hours>
+                 <value>20.417</value>
+                 </averaged_time>
+            <component>PM10</component>
+              <averaged_time>
+                 <averaged_hours>1</averaged_hours>
+                 <value>5</value>
+                 </averaged_time>
+            </measurement>
+            <AQ_hourly_index>
+                 <value>1</value>
+            </AQ_hourly_index>
+         </station>
+         <station>
+            <code>ACHOA</code>
+            <name>Praha 4-Chodov</name>
+            <wgs84_longitude>14.51745</wgs84_longitude>
+            <wgs84_latitude>50.030172</wgs84_latitude>
+            <measurement>
+            <component>NO2</component>
+              <averaged_time>
+                 <averaged_hours>1</averaged_hours>
+                 <value>17.2</value>
+                 </averaged_time>
+            <component>PM10</component>
+              <averaged_time>
+                    <averaged_hours>24</averaged_hours>
+                 <value>20.708</value>
+                 </averaged_time>
+            <component>PM10</component>
+              <averaged_time>
+                 <averaged_hours>1</averaged_hours>
+                 <value>22</value>
+                 </averaged_time>
+            </measurement>
+            <AQ_hourly_index>
+                 <value>2</value>
+            </AQ_hourly_index>
+         </station>
+   </Data>
+</AQ_hourly_index>

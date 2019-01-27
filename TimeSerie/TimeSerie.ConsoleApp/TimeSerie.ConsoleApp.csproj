@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TimeSerie.Core\TimeSerie.Core.csproj" />
-    <ProjectReference Include="..\TimeSerie.Ef\TimeSerie.Ef.csproj" />
+    <ProjectReference Include="..\TimeSerie.Service\TimeSerie.Service.csproj" />
   </ItemGroup>
 
 </Project>
