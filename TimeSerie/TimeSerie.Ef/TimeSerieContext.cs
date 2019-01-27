@@ -25,7 +25,10 @@ namespace TimeSerie.Ef
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=TimeSerie.db");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=TimeSerie.db");
+            }
             optionsBuilder.UseLoggerFactory(LoggerFactory);
         }
 

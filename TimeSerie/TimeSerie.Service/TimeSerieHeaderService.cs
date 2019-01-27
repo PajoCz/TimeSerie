@@ -12,13 +12,28 @@ namespace TimeSerie.Service
 {
     public class TimeSerieHeaderService
     {
+        private readonly DbContextOptions _DbContextOptions;
+
+        public TimeSerieHeaderService()
+        {
+        }
+
+        public TimeSerieHeaderService(DbContextOptions p_DbContextOptions)
+        {
+            _DbContextOptions = p_DbContextOptions;
+        }
+
+        public TimeSerieContext CreateTimeSerieContext()
+        {
+            return _DbContextOptions == null ? new TimeSerieContext() : new TimeSerieContext(_DbContextOptions);
+        }
+
         //todo: IAnotherPocoConvertor
         public async Task ProcessStreamByConvertorAsync(Stream p_Stream, ITimeSerieConvertor p_TimeSerieConvertor)
         {
             var tsFromStream = (await p_TimeSerieConvertor.Convert(p_Stream)).ToList();
-            using (var db = new TimeSerieContext())
+            using (var db = CreateTimeSerieContext())
             {
-                //db.Database.EnsureCreated();
                 var tsFromDb = await db.TimeSerieHeaders.Include(tsh => tsh.TimeSerieHeaderProperties).ToListAsync();
                 foreach (TimeSerieHeader tsFromStreamItem in tsFromStream)
                 {
@@ -51,7 +66,7 @@ namespace TimeSerie.Service
 
         public async Task<IEnumerable<TimeSerieHeader>> GetAllAsync()
         {
-            using (var db = new TimeSerieContext())
+            using (var db = CreateTimeSerieContext())
             {
                 return await db.TimeSerieHeaders.Include(tsh => tsh.TimeSerieHeaderProperties).Include(tsh => tsh.ValueDecimals)
                     .Include(tsh => tsh.ValueStrings).ToListAsync();
